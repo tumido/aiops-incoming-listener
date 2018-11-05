@@ -68,8 +68,13 @@ if __name__ == '__main__':
             )
             continue
 
+        # HACK: POC
+        if received.get('type') != 'ai_input':
+            logger.warning('Message not intended for us: %s', received)
+            continue
+
         message = {
-            'url': received.get('url'),
+            'url': received.get('url', ""),
             'origin': 'kafka',
             'metadata': {
                 'rh_account': received.get('rh_account', None)
